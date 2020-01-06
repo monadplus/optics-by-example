@@ -33,11 +33,24 @@ library
      , time              >=1.8.0.1  && <2.0.0.0
   exposed-modules:
       Lenses
+      PolymorphicOptics
   other-modules:
   default-extensions:
       OverloadedStrings
   ghc-options: -O3 -Wall
-  hs-source-dirs: src/02-optics src/03-lenses src/04-polymorphic-optics
+  hs-source-dirs:
+    src/02-optics
+    src/03-lenses
+    src/04-polymorphic-optics
+    src/05-operators
+    src/06-folds
+    src/07-traversals
+    src/08-indexable-structures
+    src/09-prisms
+    src/10-isos
+    src/11-indexed-optics
+    src/12-optics-and-monads
+    src/13-classy-lenses
   default-language: Haskell2010
 
 test-suite optics-by-example-tests
@@ -51,6 +64,7 @@ test-suite optics-by-example-tests
      , lens-aeson        >=1.0.1    && <1.2
      , lens-properties   >=4.11     && <4.12
      , QuickCheck        >=2.12     && <2.14
-  other-modules: LensPropertiesSpec
+  other-modules:
+      LensPropertiesSpec
   hs-source-dirs: test
   default-language: Haskell2010
