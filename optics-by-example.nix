@@ -1,6 +1,6 @@
 { pkgs, mkDerivation, async, base, bytestring, containers, directory
-, filepath, http-conduit, lens, lens-aeson, mtl, network-simple
-, stdenv, stm, text, time
+, filepath, generic-random, hspec, lens, lens-aeson, lens-properties, mtl
+, QuickCheck, stdenv, stm, text, time
 }:
 mkDerivation {
   pname = "optics-by-example";
@@ -24,8 +24,11 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    async base bytestring containers directory filepath http-conduit
-    lens lens-aeson mtl network-simple stm text time
+    async base bytestring containers directory filepath lens lens-aeson
+    mtl stm text time
+  ];
+  testHaskellDepends = [
+    base generic-random hspec lens lens-aeson lens-properties QuickCheck
   ];
   executableHaskellDepends = [ base ];
   doHaddock = false;
