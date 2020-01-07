@@ -34,6 +34,7 @@ library
   exposed-modules:
       Lenses
       PolymorphicOptics
+      Operators
   other-modules:
   default-extensions:
       OverloadedStrings
