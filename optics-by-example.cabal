@@ -35,6 +35,7 @@ library
       Lenses
       PolymorphicOptics
       Operators
+      Folds
   other-modules:
   default-extensions:
       OverloadedStrings
