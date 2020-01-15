@@ -36,6 +36,7 @@ library
       PolymorphicOptics
       Operators
       Folds
+      Traversals
   other-modules:
   default-extensions:
       OverloadedStrings
