@@ -37,6 +37,7 @@ library
       Operators
       Folds
       Traversals
+      IndexableStructures
   other-modules:
   default-extensions:
       OverloadedStrings
