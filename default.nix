@@ -1,5 +1,5 @@
-{ nixpkgs ? import ./nix/nixpkgs.nix
-, compiler ? "ghc822"
+{ nixpkgs     ? import ./nix/nixpkgs.nix {}
+, compiler    ? "ghc881"
 , doBenchmark ? false
 }:
 
@@ -17,10 +17,10 @@ let
   haskellPackages =
     let
       manualOverrides = haskellPackagesNew: haskellPackagesOld: {
-        Diff =
-          pkgs.haskell.lib.dontCheck haskellPackagesOld.Diff;
-        aeson =
-          pkgs.haskell.lib.addBuildDepend haskellPackagesOld.aeson haskellPackagesOld.contravariant;
+        #Diff =
+          #pkgs.haskell.lib.dontCheck haskellPackagesOld.Diff;
+        #aeson =
+          #pkgs.haskell.lib.addBuildDepend haskellPackagesOld.aeson haskellPackagesOld.contravariant;
       };
     in
       baseHaskellPackages.override {
