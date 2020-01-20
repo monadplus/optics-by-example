@@ -1,5 +1,5 @@
 { pkgs, mkDerivation, async, base, bytestring, containers, directory
-, filepath, generic-random, hspec, lens, lens-aeson, lens-properties, mtl
+, filepath, generic-random, hspec, lens, lens-aeson, lens-properties, lens-regex-pcre, mtl
 , QuickCheck, stdenv, stm, text, time
 }:
 mkDerivation {
@@ -24,11 +24,11 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    async base bytestring containers directory filepath lens lens-aeson
+    async base bytestring containers directory filepath lens lens-aeson lens-regex-pcre
     mtl stm text time
   ];
   testHaskellDepends = [
-    base generic-random hspec lens lens-aeson lens-properties QuickCheck
+    base generic-random hspec lens lens-aeson lens-regex-pcre lens-properties QuickCheck
   ];
   executableHaskellDepends = [ base ];
   doHaddock = false;
