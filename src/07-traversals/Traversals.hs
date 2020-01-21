@@ -282,6 +282,7 @@ import           Control.Applicative
 
 -- Capitalize the first char of every word
 -- >>> "blue suede shoes" & worded . taking 1 traversed %~ toUpper
+-- >>> "blue suede shoes" & worded . _head %~ toUpper
 -- "Blue Suede Shoes"
 
 -- Find all strings longer than 5 chars then surround each word in the string with '*'
@@ -374,6 +375,7 @@ import           Control.Applicative
 
 -- >>> import Text.Read (readMaybe)
 -- >>> traverseOf both readMaybe ("1", "2") :: Maybe (Int, Int)
+-- >>> ("1", "2") & each %%~ readMaybe @Int
 -- Just (1, 2)
 -- >>> traverseOf both readMaybe ("not a number", "2") :: Maybe (Int, Int)
 -- Nothing
@@ -557,8 +559,8 @@ validateAge = traverseOf (user.age) check
 -- values :: Traversal [a] [b] a b
 
 values :: Applicative f => (a -> f b) -> [a] -> f [b]
-values _ [] = pure []
-values f (x:xs) =  liftA2 (:) (f x) (values f xs)
+values _ []           = pure []
+values handler (x:xs) =  liftA2 (:) (handler x) (values handler xs)
 
 -- >>> ["one", "two", "three"] ^.. values
 -- ["one","two","three"]
@@ -615,13 +617,16 @@ deposits :: Traversal' [Transaction] Int
 deposits _ [] = pure []
 deposits f ((Withdrawal n) : xs) = liftA2 (:) (pure (Withdrawal n)) (deposits f xs)
 deposits f ((Deposit n) : xs) = liftA2 (:) (Deposit <$> f n) (deposits f xs)
+-- ^^^^^^^^^^^^^^^ pure == not applying the view/set/update
 
--- This form is recommended. Sometimes you need to write it manually though.
 deposits2 :: Traversal' [Transaction] Int
 deposits2 = traversed . filtered isDeposit . amount
   where
     isDeposit (Deposit _) = True
     isDeposit _ = False
+-- ^^^^^^^ This form is recommended.
+-- Sometimes you need to write it manually though.
+
 
 --Get all the Deposit transaction amounts:
 -- >>> aliceAccount ^.. transactions . deposits
@@ -690,10 +695,12 @@ beside' :: Traversal s t a b
       -> Traversal s' t' a b
       -> Traversal (s,s') (t,t') a b
 -- (a -> f b) -> (s, s') -> f (t, t')
-beside' f g h (s, s') =
-  liftA2 (,)
-  (s  & f %%~ h) -- f t
-  (s' & g %%~ h) -- f t'
+beside' f g handler (s, s') =
+  let t  = f handler s
+      t' = g handler s'
+   in liftA2 (,) t t'
+  -- liftA2 (,) (s  & f %%~ h) (s' & g %%~ h)
+
 
 -- >>> (1, (2, [3, 4])) & beside' id (beside' id traversed) +~ 1
 -- (2,(3,[4,5]))

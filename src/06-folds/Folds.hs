@@ -656,6 +656,7 @@ computeAverage (Sum count, Sum total) = fromIntegral total / fromIntegral count
 
 -- Combine the elements into the expected String
 -- >>> foldOf (to reverse . folded) ["a", "b", "c"]
+-- >>> foldOf (backwards folded) ["a", "b", "c"]
 -- >>> foldByOf folded (flip (++)) mempty ["a", "b", "c"]
 -- >>> foldrOf folded (flip (++)) mempty ["a", "b", "c"]
 -- "cba"

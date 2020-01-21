@@ -84,12 +84,12 @@ data Thermometer =
               } deriving Show
 makeLenses ''Thermometer
 
--- <   Get the altered focus (post-action) in addition to modifying it
+-- (<...) Get the altered focus (post-action) in addition to modifying it
 
 -- >>> Thermometer 20 & temperature <+~ 15
 -- (35,Thermometer {_temperature = 35})
 
--- <<   Get the OLD focus (pre-action) in addition to setting a new one
+-- (<<...) Get the OLD focus (pre-action) in addition to setting a new one
 -- >>> Thermometer 20 & temperature <<+~ 15
 -- (20,Thermometer {_temperature = 35})
 
