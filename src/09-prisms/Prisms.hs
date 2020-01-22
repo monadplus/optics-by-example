@@ -34,6 +34,7 @@ import           Data.Text           (Text)
 import qualified Data.Text           as T
 import           Data.Tree
 import           Text.Read           (readMaybe)
+
 ------------------------------------------------------
 -- Prism
 
@@ -92,7 +93,7 @@ import           Text.Read           (readMaybe)
 
 -- has   :: Fold s a      -> s -> Bool
 -- isn't :: Prism s t a b -> s -> Bool
--- ^^^^^^^^^^^ has checks wheter the given fold yields any elements when run on teh provided structure. isn't the oppositve
+-- ^^^^^^^^^^^ checks whether the given fold yields any elements
 
 -- >>> has _Right (Left "mesage")
 -- False
@@ -326,7 +327,7 @@ _Prefix prefix = prism' embed match
     embed s = prefix <> s
 
 -- >>> "http://phishingscam.com" ^? _Prefix "https://"
--- Nithing
+-- Nothing
 -- >>> "https://totallylegit.com" ^? _Prefix "https://"
 -- Just "totallylegit.com"
 
@@ -669,8 +670,8 @@ postsHandler = const "Posts Handler!"
 -- Plain haskell
 postsHandler' :: Request -> String
 postsHandler' (Post path' body) = "Created post with body: " <> body
-postsHandler' (Get path')       = "Fetching post at path: " <> intercalate "/" path'
-postsHandler' (Delete path')    = "Deleting post at path: " <> intercalate "/" path'
+postsHandler' (Get path')       = "Fetching post at path: " <> List.intercalate "/" path'
+postsHandler' (Delete path')    = "Deleting post at path: " <> List.intercalate "/" path'
 
 -- This standard code is:
 --   * much more readable
