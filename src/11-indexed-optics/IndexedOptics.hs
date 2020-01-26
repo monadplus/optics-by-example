@@ -127,7 +127,7 @@ import           Data.Foldable
 
 -- Custom Index Composition
 
--- icompose : compose any two ndexed optics into a new indexed optic by combining the indexes together:
+-- icompose : compose any two indexed optics into a new indexed optic by combining the indexes together:
 
 -- icompose :: (i -> j -> k)
 --          -> IndexedOptics i s t a b

@@ -167,4 +167,4 @@ weatherStats' = do
   zoom temperature convertCelsiusToFahrenheit
 
 -- >>> execStateT weatherStats (Weather 32 7.2)
--- Weather {_temperature = 89.6, _pressure = 7.2}<Paste>
+-- Weather {_temperature = 89.6, _pressure = 7.2}
