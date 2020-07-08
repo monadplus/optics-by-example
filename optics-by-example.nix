@@ -1,5 +1,5 @@
 { pkgs, mkDerivation, async, base, bytestring, containers, directory
-, filepath, generic-random, hspec, lens, lens-aeson, lens-properties, lens-regex-pcre, mtl
+, filepath, generic-random, hspec, lens, lens-aeson, lens-action, lens-properties, lens-regex-pcre, mtl
 , QuickCheck, stdenv, stm, text, time
 }:
 mkDerivation {
@@ -23,14 +23,17 @@ mkDerivation {
   };
   isLibrary = true;
   isExecutable = true;
+  executableHaskellDepends = [
+    base
+    lens lens-aeson lens-action lens-regex-pcre
+  ];
   libraryHaskellDepends = [
-    async base bytestring containers directory filepath lens lens-aeson lens-regex-pcre
+    async base bytestring containers directory filepath lens lens-aeson lens-action lens-regex-pcre
     mtl stm text time
   ];
   testHaskellDepends = [
     base generic-random hspec lens lens-aeson lens-regex-pcre lens-properties QuickCheck
   ];
-  executableHaskellDepends = [ base ];
   doHaddock = false;
   license = "unknown";
   hydraPlatforms = stdenv.lib.platforms.none;

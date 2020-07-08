@@ -79,9 +79,9 @@ serenity = Ship (Payload 50000 "Livestock")
 
 -- Modifiers
 
-data Thermometer =
-  Thermometer { _temperature :: Int
-              } deriving Show
+data Thermometer = Thermometer
+  { _temperature :: Int
+  } deriving Show
 makeLenses ''Thermometer
 
 -- (<...) Get the altered focus (post-action) in addition to modifying it

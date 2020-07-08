@@ -24,7 +24,7 @@ import qualified Data.Text           as T
 
 -- Polymorphic lenses
 --
---we need polymorphic lenses whenever na action might want to change the type of the focus.
+-- We need polymorphic lenses whenever an action might want to change the type of the focus.
 
 -- Lens s t a b
 -- <s> and <a> represent the types of the structure and focus **before** they've been acted on,

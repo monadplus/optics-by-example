@@ -107,12 +107,13 @@ import           Data.Foldable
 -- ^^^^ we lost track of the day of the week ..
 
 -- When composing optics the index of the whole path is the index of the *last* optic,
--- and only if it's an indexed optic.
+--   and only if it's an indexed optic.
 
 -- The lens library provides several different index-aware composition operators:
---   * (<.)  use the index of the optic to the left
---   * (.>)  use the index of the optic to the right (this is how (.) already behaves)
---   * (<.>) cmbine both indices as a tuple
+--
+--   * (<.)  use the index of the optic to the left.
+--   * (.>)  use the index of the optic to the right (this is how (.) already behaves).
+--   * (<.>) combine both indices as a tuple.
 
 -- >>> agenda ^@.. itraversed <. itraversed
 -- [("Monday","Shopping"),("Monday","Yoga"),("Saturday","Brunch"),("Saturday","Food coma")]

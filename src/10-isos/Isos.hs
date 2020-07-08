@@ -58,7 +58,7 @@ packed' = iso to' from'
 
 -- We can use it like a lens
 
--- >>> ("Ay, caramba!" :: String) ^. packed
+-- >>> ("Ay, caramba!" :: String) ^. packed'
 -- "Ay, caramba!" :: Text
 
 -- We can use it like a prism
@@ -446,7 +446,7 @@ makeLenses ''Email'
 
 -- You need to create an instance!
 
-makeWrapped ''Email
+-- makeWrapped ''Email
 -- ^^^^ makes a _Wrapped', _Unwrapped' for  you
 
 -- >>> Email "joe@example.com" & _Wrapped' . traversed %~ toUpper

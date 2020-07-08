@@ -42,6 +42,7 @@ import           Text.Read           (readMaybe)
 --
 -- Given an index, builds a traversal to that index.
 --
+-- type family Index (s :: *) :: *
 -- type instance Index [a] = Int
 -- type instance Index (Map k a) = k
 -- type instance Index ByteString = Int
@@ -222,9 +223,9 @@ tree = Node 1 [ Node 2 [Node 4 [] ]
 -- 2. Use ix and at to go from the input to the output
 
 -- >>> let input = Map.fromList [("candy bars", 13), ("soda", 34), ("gum", 7)]
---  >>> input
---        & ix "soda" +~ 3
---        & at "ice cream" ?~ 5     -- & at "ice cream" .~  Just 5
+-- >>> input & ix "soda" +~ 3
+--           & at "ice cream" ?~ 5
+--           & sans "gum"
 -- Map.fromList [("candy bars",13),("ice cream",5),("soda",37)]
 
 
@@ -238,7 +239,7 @@ newtype Cycled a = Cycled [a]
   deriving Show
 
 -- :set -XTypeFamilies
-type instance Index (Cycled a) = Int
+type instance Index   (Cycled a) = Int
 type instance IxValue (Cycled a) = a
 
 -- :set -XInstanceSigs

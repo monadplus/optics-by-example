@@ -118,7 +118,7 @@ import           Control.Applicative
 -- [1,20,3,40,5]
 
 -- Reverse only the long strings
--- ("short", "really long"
+-- ("short", "really long")
 --   & each . filtered ((> 5) . length)
 --   %~ reverse
 
@@ -211,6 +211,8 @@ import           Control.Applicative
 ----------------------------------
 
 -- Traversing multiple paths at once
+--
+-- > Apply a different Traversal or Fold to each side of a Bitraversable container.
 
 
 -- beside :: Traversal s t a b
@@ -373,6 +375,8 @@ import           Control.Applicative
 -- traverseOf: runs traverse over the focuses of a traversal.
 -- nb. traverseOf traversed = traverse
 
+-- (%%~) :: LensLike f s t a b -> (a -> f b) -> s -> f t
+
 -- >>> import Text.Read (readMaybe)
 -- >>> traverseOf both readMaybe ("1", "2") :: Maybe (Int, Int)
 -- >>> ("1", "2") & each %%~ readMaybe @Int
@@ -390,7 +394,7 @@ import           Control.Applicative
 
 
 
--- The Applicative for the list effect will find All possible combinatins of each branch of the traversal tree, so we end up with something like this:
+-- The Applicative for the list effect will find all possible combinations of each branch of the traversal tree, so we end up with something like this:
 --
 -- >>> traverseOf
 --       (both . traversed)
@@ -458,6 +462,8 @@ validateEmail email | elem '@' email = Right email
 
 -- The fact that Traversal match the traverse functions means that lens library implementation
 -- of traverseOf and %%~ looks like this:
+--
+-- type LensLike f s t a b = (a -> f b) -> s -> f t
 --
 -- traverseOf :: LensLike f s t a b -> (a -> f b) -> s -> f t
 -- traverseOf = id
@@ -713,7 +719,7 @@ beside' f g handler (s, s') =
 -- Law One: Respect Purity
 -- traverseOf myTraversal pure x == pure x
 
--- Checks that traversal is not adding any affects or altering ay data on its own.
+-- Checks that traversal is not adding any affects or altering any data on its own.
 
 -- >>> traverseOf both pure ("don't", "touch") :: [(String, String)]
 -- >>> pure ("don't", "touch") :: [(String, String)]

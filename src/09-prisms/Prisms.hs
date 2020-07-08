@@ -123,6 +123,7 @@ import           Text.Read           (readMaybe)
 --   | Delete Path
 --   deriving Show
 -- makePrisms ''Request
+--
 -- >>> :browse Prisms
 -- _Post :: Prism' Request (Path, Body)
 -- _Get :: Prism' Request Path
@@ -154,7 +155,7 @@ import           Text.Read           (readMaybe)
 -- >>> review _Left "an error"
 -- Left "an error"
 --
--- Notice how the cmposition associates
+-- Notice how the composition associates:
 -- >>> _Just . _Left # 1337
 -- Just (Left 1337)
 
@@ -205,6 +206,7 @@ import           Text.Read           (readMaybe)
 -- class AsEmpty a where
 --   _Empty :: Prism' a ()
 
+
 -- >>> isn't _Empty []
 -- False
 -- >>> isn't _Empty [1,2,3]
@@ -229,7 +231,9 @@ is = has -- reads better
 -- [3, 5]
 -- >>> "It's True that I ate 3 apples and 5 oranges" ^.. worded . _Show :: [Bool]
 -- [True]
--- review _Show (Just 12 :: Maybe Int)
+-- >>> review _Show (12 :: Int)
+-- "12"
+-- >>> review _Show (Just 12 :: Maybe Int)
 -- "Just 12"
 
 ----------------------------------------------------------------
@@ -315,14 +319,14 @@ _Nothing' = prism' embed match
 
 ----------------------------------------------------
 
--- Matching Strng Prefixes
+-- Matching String Prefixes
 
 -- >>> import Data.List (stripPrefix)
 _Prefix :: String -> Prism' String String
 _Prefix prefix = prism' embed match
   where
     match :: String -> Maybe String
-    match s = List.stripPrefix prefix s
+    match s = List.stripPrefix prefix s -- rhs of the stripped string
     embed :: String -> String
     embed s = prefix <> s
 
@@ -377,6 +381,7 @@ runFizzBuzz = traverseOf_ traversed (putStrLn . prismFizzBuzz) [1..20]
 -- Fizz
 -- 4
 -- Buzz
+-- [...]
 
 ------------------------------------------------------------
 
@@ -584,7 +589,7 @@ _PathPrefix prefix = prism' embed match
 -- >>> _PathPrefix "posts" # Delete ["12345"]
 -- Delete ["posts","12345"]
 
--- > We could have implemented _PathPrefix much easier `prefix` prism.
+-- We could have implemented _PathPrefix much easier `prefix` prism:
 --
 -- >>> import Data.List.Lens
 -- prefixed :: Eq a => [a] -> Prism' [a] [a]

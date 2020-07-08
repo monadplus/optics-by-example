@@ -53,10 +53,10 @@ makeLenses ''CrewMember
 
 roster :: Set.Set CrewMember
 roster = Set.fromList
-  [ CrewMember "Grumpy Roger" Gunner ["Juggling", "Arbitrage"]
+  [ CrewMember "Grumpy Roger"     Gunner       ["Juggling", "Arbitrage"]
   , CrewMember "Long-John Bronze" PowderMonkey ["Origami"]
-  , CrewMember "Salty Steve" PowderMonkey ["Charcuterie"]
-  , CrewMember "One-eyed Jack" Navigator []
+  , CrewMember "Salty Steve"      PowderMonkey ["Charcuterie"]
+  , CrewMember "One-eyed Jack"    Navigator    []
   ]
 
 -- Fold s a        since folds can't be used for setting, there aren't any polymorphic actions which run on folds.
@@ -506,7 +506,7 @@ printActors =
 
 -- Combining fold results
 
--- All of the fold actions we've been using so far (e.g. maximumOf, lengthOf, anyOf, findOf, etc..) are all iplemented using Monoids.
+-- All of the fold actions we've been using so far (e.g. maximumOf, lengthOf, anyOf, findOf, etc..) are all implemented using Monoids.
 
 -- foldOf    :: Monoid a => Fold s a -> s -> a
 -- foldMapOf :: Monoid r => Fold s a -> (a -> r) -> s -> r
@@ -883,6 +883,7 @@ deck = [ Card "Skwortul"    Wet   False [Move "Squirt" 20]
        , Card "Sparkeon"    Spark True  [Move "Shock" 40, Move "Battery" 50]
        ]
 
+
 -- How many Spark Cards do I Have ?
 -- >>> lengthOf
 --       ( folded
@@ -971,6 +972,7 @@ deck = [ Card "Skwortul"    Wet   False [Move "Squirt" 20]
 -- >>>  maximumByOf
 --        ( folded . filtered _holo )
 --        ( comparing (lengthOf moves) )
+--        deck
 
 
 ---------------------
